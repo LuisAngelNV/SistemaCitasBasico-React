@@ -3,3 +3,9 @@
 
 
  Implementación de useState para poder leer 
+
+ librerias que se pueden utilizar para agregar idAutomatico
+ uuid
+ shortid
+
+ npm i uuid
