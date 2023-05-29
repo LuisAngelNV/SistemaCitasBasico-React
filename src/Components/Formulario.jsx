@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 const Formulario = () => {
   //Para validar el formulario es necesario mandar el elemento que se tiene en name 'En este caso'
@@ -24,7 +25,7 @@ const Formulario = () => {
   };
 
   // Extraer los valores
-  const { mascota, propietario, fecha, hora, sintoma } = cita;
+  const { mascota, propietario, fecha, hora, sintomas } = cita;
 
   // Cuando el usuario da en enviar formulario
   const submitCita = (e) => {
@@ -36,77 +37,83 @@ const Formulario = () => {
       propietario.trim() === "" ||
       fecha.trim() === "" ||
       hora.trim() === "" ||
-      sintoma.trim() === ""
+      sintomas.trim() === ""
     ) {
       actualizarErrores(true);
       return false;
     }
+    // Eliminar mensaje previo
+    actualizarErrores(false);
+    // Asignar id
+    cita.id = uuidv4()
+    console.log(cita);
+    // Crear la cita
+    // Reiniciar el formulario
   };
-  // Asignar id
-  // Crear la cita
-  // Reiniciar el formulario
 
-  return (
+  return ( 
     <Fragment>
-      <h2>Crear citas</h2>
-      {error ? <p className="alerta-error"> Todos los campos son obligatorios!!</p> : null}
-      <form onSubmit={submitCita}>
-        <label htmlFor="">Nombre Mascota</label>
-        <input
-          type="text"
-          name="mascota"
-          className="u-full-width"
-          placeholder="Nombre mascota"
-          onChange={actulizarState}
-          // permitira resetear el formulario en mascota
-          value={mascota}
-        ></input>
-        {/* Dato 2 */}
-        <label htmlFor="">Nombre del dueño</label>
-        <input
-          type="text"
-          name="propietario"
-          className="u-full-width"
-          placeholder="Nomre dueño de mascota"
-          onChange={actulizarState}
-          value={propietario}
-        ></input>
+        <h2>Crear Cita</h2>
 
-        {/* Dato 3 */}
-        <label htmlFor="">Fecha actual</label>
-        <input
-          type="date"
-          name="fecha"
-          className="u-full-width"
-          onChange={actulizarState}
-          value={fecha}
-        ></input>
+        { error ? <p className="alerta-error">Todos los campos son obligatorios</p>     : null }
 
-        {/* Dato 4*/}
-        <label htmlFor="">Hora de atención</label>
-        <input
-          type="time"
-          name="hora"
-          className="u-full-width"
-          onChange={actulizarState}
-          value={hora}
-        ></input>
+        <form
+            onSubmit={submitCita}
+        >
+            <label>Nombre Mascota</label>
+            <input 
+                type="text"
+                name="mascota"
+                className="u-full-width"
+                placeholder="Nombre Mascota"
+                onChange={actulizarState}
+                value={mascota}
+            />
 
-        {/* Dato 5 */}
-        <label htmlFor="">Síntomas</label>
-        <textarea
-          className="u-full-width"
-          name="sintomas"
-          onChange={actulizarState}
-          value={sintoma}
-        ></textarea>
+            <label>Nombre Dueño</label>
+            <input 
+                type="text"
+                name="propietario"
+                className="u-full-width"
+                placeholder="Nombre  Dueño de la mascota"
+                onChange={actulizarState}
+                value={propietario}
+            />
 
-        <button type="submit" className="u-full-width button-primary">
-          Agregar Cita
-        </button>
-      </form>
+            <label>Fecha</label>
+            <input 
+                type="date"
+                name="fecha"
+                className="u-full-width"
+                onChange={actulizarState}
+                value={fecha}
+            />
+
+            <label>Hora</label>
+            <input 
+                type="time"
+                name="hora"
+                className="u-full-width"
+                onChange={actulizarState}
+                value={hora}
+            />
+
+            <label>Síntomas</label>
+            <textarea
+                className="u-full-width"
+                name="sintomas"
+                onChange={actulizarState}
+                value={sintomas}
+            ></textarea>
+
+            <button
+                type="submit"
+                className="u-full-width button-primary"
+            >Agregar Cita</button>
+        </form>
     </Fragment>
-  );
-};
+);
+}
+
 
 export default Formulario;
