@@ -9,7 +9,7 @@ function App() {
         <div className='row'>
           <div className='one-half column'>
             {/* Madar a llamar al Formulario */}
-            <Formulario></Formulario>
+            <Formulario/>
           </div>
           <div className='one-half column'>
             2
